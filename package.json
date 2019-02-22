@@ -1,8 +1,9 @@
 {
-  "name": "@enjikaka/obj-viewer",
+  "name": "obj-viewer",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "module": "index.js",
   "scripts": {
     "test": "npm-run-all lint:types lint:js",
     "lint:types": "tsc -p jsconfig.json --noEmit",
