@@ -23,6 +23,12 @@ function loadObj (objLoader, src) {
   });
 }
 
+function computeGroupCenter (group) {
+  const bbox = new THREE.Box3().setFromObject(group);
+
+  return bbox.getCenter(group.position);
+}
+
 class ObjViewer extends HTMLElement {
   constructor () {
     super();
@@ -40,16 +46,13 @@ class ObjViewer extends HTMLElement {
 
   get cameraDefaults () {
     return {
-      posCamera: new THREE.Vector3(0.0, 175.0, 500.0),
-      posCameraTarget: this.cameraTarget,
-      near: 0.1,
-      far: 10000,
-      fov: 60
+      posCamera: new THREE.Vector3(0.0, 100.0, 200.0),
+      posCameraTarget: this.cameraTarget
     };
   }
 
   get cameraTarget () {
-    return new THREE.Vector3(0, 0, 0);
+    return new THREE.Vector3(0.0, 0.0, 0.0);
   }
 
   resetCamera () {
@@ -126,6 +129,13 @@ class ObjViewer extends HTMLElement {
     objLoader.setLogging(false, false);
 
     const rootNode = await loadObj(objLoader, objSource);
+
+    const center = computeGroupCenter(rootNode);
+
+    // Centers the model in the view
+    center.multiplyScalar(-1);
+
+    this.camera.lookAt(center);
 
     this.scene.add(rootNode);
   }
