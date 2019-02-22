@@ -7,6 +7,22 @@ import 'https://unpkg.com/three@0.101.1/examples/js/controls/OrbitControls.js?mo
 // @ts-ignore
 const THREE = window.THREE;
 
+function loadMtl (objLoader, src) {
+  if (src) {
+    return new Promise(resolve => {
+      objLoader.loadMtl(src, null, materials => resolve(materials));
+    });
+  }
+
+  return Promise.resolve(undefined);
+}
+
+function loadObj (objLoader, src) {
+  return new Promise(resolve => {
+    objLoader.load(src, event => resolve(event.detail.loaderRootNode), null, null, null, false);
+  });
+}
+
 class ObjViewer extends HTMLElement {
   constructor () {
     super();
@@ -95,24 +111,23 @@ class ObjViewer extends HTMLElement {
     this.updateCamera();
   }
 
-  loadModel (objSource, mtlSource) {
-    return new Promise(resolve => {
-      const objLoader = new THREE.OBJLoader2();
+  async loadModel (objSource, mtlSource) {
+    const objLoader = new THREE.OBJLoader2();
+    const modelName = objSource.split('/').pop().split('.')[0];
 
-      const modelName = objSource.split('/').pop().split('.')[0];
+    const materials = await loadMtl(objLoader, mtlSource);
 
-      objLoader.loadMtl(mtlSource, null, materials => {
-        objLoader.setModelName(modelName);
-        objLoader.setMaterials(materials);
+    objLoader.setModelName(modelName);
 
-        objLoader.setLogging(false, false);
+    if (materials) {
+      objLoader.setMaterials(materials);
+    }
 
-        objLoader.load(objSource, event => {
-          this.scene.add(event.detail.loaderRootNode);
-          resolve();
-        }, null, null, null, false);
-      });
-    });
+    objLoader.setLogging(false, false);
+
+    const rootNode = await loadObj(objLoader, objSource);
+
+    this.scene.add(rootNode);
   }
 
   render () {
