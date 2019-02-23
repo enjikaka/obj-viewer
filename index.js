@@ -1,8 +1,8 @@
-import 'https://unpkg.com/three@0.101.1/build/three.js?module';
-import 'https://unpkg.com/three@0.101.1/examples/js/loaders/LoaderSupport.js?module';
-import 'https://unpkg.com/three@0.101.1/examples/js/loaders/MTLLoader.js?module';
-import 'https://unpkg.com/three@0.101.1/examples/js/loaders/OBJLoader2.js?module';
-import 'https://unpkg.com/three@0.101.1/examples/js/controls/OrbitControls.js?module';
+import 'three';
+import 'three/examples/js/loaders/LoaderSupport.js';
+import 'three/examples/js/loaders/MTLLoader.js';
+import 'three/examples/js/loaders/OBJLoader2.js';
+import 'three/examples/js/controls/OrbitControls.js';
 
 // @ts-ignore
 const THREE = window.THREE;
