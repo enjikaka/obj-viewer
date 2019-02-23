@@ -1,4 +1,11 @@
-import * as THREE from 'three';
+import 'https://unpkg.com/three@0.101.1/build/three.js?module';
+import 'https://unpkg.com/three@0.101.1/examples/js/loaders/LoaderSupport.js?module';
+import 'https://unpkg.com/three@0.101.1/examples/js/loaders/MTLLoader.js?module';
+import 'https://unpkg.com/three@0.101.1/examples/js/loaders/OBJLoader2.js?module';
+import 'https://unpkg.com/three@0.101.1/examples/js/controls/OrbitControls.js?module';
+
+// @ts-ignore
+const THREE = window.THREE;
 
 function loadMtl (objLoader, src) {
   if (src) {
@@ -192,11 +199,6 @@ class ObjViewer extends HTMLElement {
     this.wrapperElement = this.sDOM.querySelector('.wrapper');
 
     const displayGrid = this.hasAttribute('display-grid');
-
-    await import('three/examples/js/loaders/LoaderSupport.js');
-    await import('three/examples/js/loaders/MTLLoader.js');
-    await import('three/examples/js/loaders/OBJLoader2.js');
-    await import('three/examples/js/controls/OrbitControls.js');
 
     this.initGL({ displayGrid });
     this.resizeDisplayGL();
