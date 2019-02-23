@@ -1,11 +1,8 @@
-import 'three';
+import * as THREE from 'three';
 import 'three/examples/js/loaders/LoaderSupport.js';
 import 'three/examples/js/loaders/MTLLoader.js';
 import 'three/examples/js/loaders/OBJLoader2.js';
 import 'three/examples/js/controls/OrbitControls.js';
-
-// @ts-ignore
-const THREE = window.THREE;
 
 function loadMtl (objLoader, src) {
   if (src) {
