@@ -16,7 +16,9 @@ Note: Uses ResizeObserver. Polyfill it on your end.
 
 ## Usage
 
-Install obj-viewer via npm or import it in your ES module supported browser with `import 'https://unpkg.com/obj-viewer?module';`
+Install obj-viewer via npm and import it in your webpack/rollup bundles.
+
+Alternatively, import it in your ES module supported browser with `import 'https://unpkg.com/obj-viewer?module';` in a JavaScript module file or in your HTML with `<script src="https://unpkg.com/obj-viewer?module" type="module"></script>`. The demo page uses the latter method.
 
 ## Note
 
